@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- Deklarasi bahwa dokumen ini menggunakan standar HTML5 -->
+
+<html lang="id">
+<!-- Elemen utama HTML yang membungkus seluruh isi halaman -->
+<!-- Atribut lang="id" menunjukkan bahwa bahasa utama halaman ini adalah Bahasa Indonesia -->
+
+<head>
+  <!-- Bagian <head> berisi metadata, judul halaman, dan pengaturan tampilan dasar -->
+
+  <meta charset="UTF-8">
+  <!-- Menentukan sistem karakter UTF-8 agar semua huruf (termasuk aksara lokal) tampil dengan benar -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Mengatur agar halaman bersifat responsif dan menyesuaikan ukuran layar perangkat -->
+
+  <title>Sistem Informasi Statistik Kabupaten Sleman</title>
+  <!-- Judul yang akan muncul di tab browser -->
+
+  <style>
+    /* ==============================
+       BAGIAN CSS UNTUK DESAIN TAMPILAN
+       ============================== */
+
+    /* ===== Global ===== */
+    * {
+      box-sizing: border-box;
+      /* Mengatur perhitungan lebar elemen agar padding & border ikut dihitung */
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* Menggunakan font modern */
+      background: linear-gradient(135deg, #fdf2f8, #e0f2fe);
+      /* Latar belakang gradasi pastel lembut */
+      margin: 0;
+      padding: 0;
+      color: #374151;
+      /* Warna teks abu kebiruan */
+      animation: fadeIn 1s ease;
+      /* Efek animasi muncul perlahan saat halaman dibuka */
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* ===== HEADER (Bagian Atas Halaman) ===== */
+    header {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      /* Efek transparan dan blur untuk tampilan modern */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 3px solid #fbcfe8;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      /* Jarak antar elemen kiri (logo & teks) */
+    }
+
+    .header-left img {
+      height: 70px;
+      /* Ukuran logo di header */
+    }
+
+    .title-block {
+      text-align: left;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      color: #1e293b;
+      font-size: 1.8em;
+      letter-spacing: 0.5px;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-style: italic;
+      color: #64748b;
+      font-size: 1em;
+    }
+
+    /* ===== LOGIN BUTTON ===== */
+    .login-btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #1d4ed8;
+      transform: scale(1.05);
+      /* Saat kursor diarahkan ke tombol, warnanya jadi lebih gelap dan sedikit membesar */
+    }
+
+    /* ===== LAYOUT UTAMA ===== */
+    .wrapper {
+      display: flex;
+      min-height: calc(100vh - 150px);
+      /* Membuat konten utama menempati ruang di bawah header & di atas footer */
+    }
+
+    /* ===== SIDEBAR MENU ===== */
+    nav {
+      background-color: rgba(255,255,255,0.75);
+      width: 220px;
+      padding: 25px;
+      border-right: 3px solid #fbcfe8;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    }
+
+    nav h3 {
+      color: #334155;
+      border-bottom: 2px solid #fbcfe8;
+      padding-bottom: 5px;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    nav ul li {
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: #0f172a;
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    nav ul li:hover {
+      background-color: #93c5fd;
+      color: white;
+      cursor: pointer;
+      transform: translateX(3px);
+      /* Efek hover: warna biru lembut dan sedikit bergeser */
+    }
+
+    /* ===== BAGIAN UTAMA (MAIN CONTENT) ===== */
+    main {
+      flex: 1;
+      padding: 40px 50px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #334155;
+      margin-bottom: 20px;
+    }
+
+    .table-container {
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    th {
+      background-color: #fbcfe8;
+      padding: 12px;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 10px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    tr:hover {
+      background-color: #f0f9ff;
+      transition: 0.3s;
+    }
+
+    /* ===== TOMBOL TAMPILKAN DATA ===== */
+    .show-btn {
+      display: block;
+      margin: 0 auto 15px auto;
+      background-color: #a5f3fc;
+      color: #0f172a;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .show-btn:hover {
+      background-color: #7dd3fc;
+      transform: scale(1.05);
+    }
+
+    /* ===== FOOTER (Bagian Bawah) ===== */
+    footer {
+      text-align: center;
+      background-color: rgba(255,255,255,0.8);
+      border-top: 3px solid #fbcfe8;
+      padding: 25px;
+    }
+
+    footer img {
+      height: 110px;
+      margin-bottom: 10px;
+      transition: transform 0.4s ease;
+    }
+
+    footer img:hover {
+      transform: scale(1.08);
+    }
+
+    footer p {
+      color: #475569;
+      margin: 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===========================
+       BAGIAN BODY (ISI HALAMAN)
+       =========================== -->
+
+  <header>
+    <!-- HEADER berisi logo, judul situs, dan tombol login -->
+    <div class="header-left">
+      <img src="Download-PNG-Logo-Kabupaten-Sleman 1.png" alt="Logo Sleman">
+      <!-- Logo Sleman di sisi kiri -->
+      <div class="title-block">
+        <h1>SISTEM INFORMASI STATISTIK</h1>
+        <p>KABUPATEN SLEMAN</p>
+      </div>
+    </div>
+    <button class="login-btn" onclick="openLogin()">Login</button>
+    <!-- Tombol login dengan fungsi JavaScript saat diklik -->
+  </header>
+
+  <div class="wrapper">
+    <!-- Wrapper membungkus sidebar dan konten utama -->
+    
+    <nav>
+      <!-- Sidebar kiri berisi menu navigasi -->
+      <h3>Menu Penduduk</h3>
+      <ul>
+        <li>Geografi dan Iklim</li>
+        <li>Pemerintahan</li>
+        <li>Sosial</li>
+        <li>Pertanian</li>
+        <li>Industri</li>
+        <li>Pariwisata dan Keuangan</li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Bagian utama halaman berisi tabel penduduk -->
+      <h2>Tabel Penduduk</h2>
+      <button class="show-btn" onclick="showTable()">Tampilkan Data</button>
+      <!-- Tombol untuk menampilkan tabel data -->
+
+      <div class="table-container">
+        <!-- Container untuk membungkus tabel -->
+        <table id="tabelPenduduk" style="display:none;">
+          <!-- Tabel disembunyikan dulu (display:none) -->
+          <thead>
+            <tr>
+              <th>Kecamatan</th>
+              <th>Luas Wilayah (km²)</th>
+              <th>Jumlah Penduduk</th>
+              <th>Kepadatan Penduduk (jiwa/km²)</th>
+            </tr>
+          </thead>
+          <tbody id="dataBody"></tbody>
+          <!-- Isi tabel akan dimasukkan secara dinamis oleh JavaScript -->
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <!-- FOOTER di bagian bawah halaman -->
+    <img src="logo-sleman.png" alt="Logo Sleman">
+    <p><b>Pemerintah Kabupaten Sleman</b><br>
+    Jl. Parasamya, Sleman, Daerah Istimewa Yogyakarta Kode Pos 55511 Telp (0274) 868405</p>
+  </footer>
+
+  <!-- ===========================
+       BAGIAN SCRIPT JAVASCRIPT
+       =========================== -->
+  <script>
+    /* Data penduduk dalam bentuk array of objects */
+    const dataPenduduk = [
+      {kec:"Moyudan", luas:27.62, jumlah:31497, kepadatan:1140.37},
+      {kec:"Minggir", luas:27.27, jumlah:29886, kepadatan:1095.93},
+      {kec:"Seyegan", luas:26.63, jumlah:47129, kepadatan:1769.77},
+      {kec:"Godean", luas:26.84, jumlah:72028, kepadatan:2683.61},
+      {kec:"Gamping", luas:29.25, jumlah:108675, kepadatan:3715.38},
+      {kec:"Mlati", luas:28.52, jumlah:113732, kepadatan:3987.80},
+      {kec:"Depok", luas:35.55, jumlah:189649, kepadatan:5334.71},
+      {kec:"Berbah", luas:22.99, jumlah:58606, kepadatan:2557.89},
+      {kec:"Prambanan", luas:41.35, jumlah:48565, kepadatan:1174.48},
+      {kec:"Kalasan", luas:35.84, jumlah:86654, kepadatan:2417.80},
+      {kec:"Ngemplak", luas:35.71, jumlah:65951, kepadatan:1846.65},
+      {kec:"Ngaglik", luas:38.52, jumlah:120304, kepadatan:3124.62},
+      {kec:"Sleman", luas:31.32, jumlah:67839, kepadatan:2166.14},
+      {kec:"Tempel", luas:32.49, jumlah:50723, kepadatan:1561.69},
+      {kec:"Turi", luas:43.09, jumlah:34361, kepadatan:797.42},
+      {kec:"Pakem", luas:43.84, jumlah:38193, kepadatan:871.79},
+      {kec:"Cangkringan", luas:47.99, jumlah:29456, kepadatan:613.79}
+    ];
+
+    /* Fungsi untuk menampilkan tabel saat tombol diklik */
+    function showTable() {
+      const tbody = document.getElementById("dataBody");
+      tbody.innerHTML = "";
+      // Kosongkan isi tabel dulu agar tidak dobel
+
+      // Looping untuk menambah baris tabel dari data array
+      dataPenduduk.forEach(d => {
+        const tr = document.createElement("tr");
+        // Buat elemen baris tabel baru
+        tr.innerHTML = `
+          <td>${d.kec}</td>
+          <td>${d.luas.toFixed(2)}</td>
+          <td>${d.jumlah.toLocaleString("id-ID")}</td>
+          <td>${d.kepadatan.toLocaleString("id-ID")}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Setelah data dimasukkan, tampilkan tabel
+      document.getElementById("tabelPenduduk").style.display = "table";
+    }
+
+    /* Fungsi login (sementara hanya menampilkan pesan) */
+    function openLogin() {
+      alert("Fitur login akan segera tersedia.");
+    }
+  </script>
+
+</body>
+</html>
